@@ -1,6 +1,6 @@
 import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
-import Productviewer from './components/Productviewer.jsx'
+import Productviewer from './components/three/Productviewer.jsx'
 import gsap from 'gsap'
 import { ScrollTrigger, SplitText } from 'gsap/all'
 

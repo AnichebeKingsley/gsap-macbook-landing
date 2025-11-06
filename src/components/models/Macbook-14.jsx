@@ -1,13 +1,42 @@
-import React, { useRef } from 'react'
-import { useGLTF, useTexture} from '@react-three/drei'
+import React, { useRef, useEffect } from 'react'
+import { useGLTF, useTexture} from '@react-three/drei';
+import useMacbookStore from "../../store/index.js";
+import { Color, Scene } from 'three'
 
 export default function MacbookModel14(props) {
-  const { nodes, materials } = useGLTF('/models/macbook-14-transformed.glb')
+  const { color } = useMacbookStore();
+  const { nodes, materials, scene } = useGLTF('/models/macbook-14-transformed.glb')
+  const groupRef = useRef();
 
   const texture = useTexture('/textures/screen.png');
 
+  // Parts that should keep their original appearance (screen, keyboard, etc.)
+  const noChangeParts = [
+    'Object_123', // Screen
+  ];
+
+  useEffect(() => {
+    if (!groupRef.current) return;
+
+    groupRef.current.traverse((child) => {
+      if (child.isMesh && !noChangeParts.includes(child.name)) {
+        // Clone material if not already cloned
+        if (!child.material.userData.isCloned) {
+          child.material = child.material.clone();
+          child.material.userData.isCloned = true;
+        }
+        
+        // Apply color based on the metallic/roughness properties
+        if (child.material.metalness !== undefined) {
+          child.material.color = new Color(color);
+          child.material.needsUpdate = true;
+        }
+      }
+    });
+  }, [color, Scene]);
+
   return (
-    <group {...props} dispose={null}>
+    <group ref={groupRef} {...props} dispose={null}>
       <mesh
         castShadow
         receiveShadow
@@ -135,7 +164,7 @@ export default function MacbookModel14(props) {
         rotation={[Math.PI / 2, 0, 0]}
       >
         <meshBasicMaterial map={texture} />
-        </mesh>
+      </mesh>
       <mesh
         castShadow
         receiveShadow
