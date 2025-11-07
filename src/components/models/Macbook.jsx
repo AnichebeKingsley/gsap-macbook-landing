@@ -1,10 +1,14 @@
 import React from 'react'
 import { useGLTF, useTexture } from '@react-three/drei'
+import { SRGBColorSpace } from 'three';
 
 export default function MacbookModel(props) {
   const { nodes, materials } = useGLTF('/models/macbook-transformed.glb')
 
     const texture = useTexture('/textures/screen.png');
+     texture.colorSpace = SRGBColorSpace;
+     texture.needsUpdate = true;
+
 
   return (
     <group {...props} dispose={null}>

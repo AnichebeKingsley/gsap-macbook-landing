@@ -5,7 +5,7 @@ import { Color, Scene, SRGBColorSpace } from 'three'
 
 export default function MacbookModel16(props) {
   const { color } = useMacbookStore();
-  const { nodes, materials, scene } = useGLTF('/models/macbook-16-transformed.glb')
+  const { nodes, materials, SRGBColorSpace } = useGLTF('/models/macbook-16-transformed.glb')
   const groupRef = useRef();
   
   const texture = useTexture('/textures/screen.png');
