@@ -162,7 +162,6 @@ export default function MacbookModel16(props) {
         castShadow
         receiveShadow
         geometry={nodes.Object_123.geometry}
-        material={materials.sfCQkHOWyrsLmor}
         rotation={[Math.PI / 2, 0, 0]}
       >
         <meshBasicMaterial map={texture} />
