@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { useGLTF, useTexture} from '@react-three/drei';
 import useMacbookStore from "../../store/index.js";
-import { Color, Scene } from 'three'
+import { Color, Scene, SRGBColorSpace } from 'three'
 
 export default function MacbookModel14(props) {
   const { color } = useMacbookStore();
@@ -9,6 +9,9 @@ export default function MacbookModel14(props) {
   const groupRef = useRef();
 
   const texture = useTexture('/textures/screen.png');
+
+   texture.colorSpace = SRGBColorSpace;
+    texture.needsUpdate = true;
 
   // Parts that should keep their original appearance (screen, keyboard, etc.)
   const noChangeParts = [

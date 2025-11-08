@@ -1,14 +1,16 @@
 import React, { useRef, useEffect } from 'react'
 import { useGLTF, useTexture } from '@react-three/drei'
 import useMacbookStore from "../../store/index.js";
-import { Color, Scene } from 'three'
+import { Color, Scene, SRGBColorSpace } from 'three'
 
 export default function MacbookModel16(props) {
   const { color } = useMacbookStore();
-  const { nodes, materials, scene } = useGLTF('/models/macbook-16-transformed.glb')
+  const { nodes, materials, SRGBColorSpace } = useGLTF('/models/macbook-16-transformed.glb')
   const groupRef = useRef();
   
   const texture = useTexture('/textures/screen.png');
+  texture.colorSpace = SRGBColorSpace;
+  texture.needsUpdate = true;
 
   // Parts that should keep their original appearance
   const noChangeParts = [
@@ -160,7 +162,6 @@ export default function MacbookModel16(props) {
         castShadow
         receiveShadow
         geometry={nodes.Object_123.geometry}
-        material={materials.sfCQkHOWyrsLmor}
         rotation={[Math.PI / 2, 0, 0]}
       >
         <meshBasicMaterial map={texture} />
