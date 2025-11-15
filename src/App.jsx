@@ -4,6 +4,8 @@ import Productviewer from './components/three/Productviewer.jsx'
 import Showcase from './components/Showcase.jsx'
 import Performance from './components/Performance.jsx'
 import Features from './components/Features.jsx'
+import Highlights from './components/Highlights.jsx'
+import Footer from './components/Footer.jsx'
 import gsap from 'gsap'
 import { ScrollTrigger, SplitText } from 'gsap/all'
 
@@ -19,6 +21,8 @@ const App = () => {
      <Showcase />
      <Performance />
      <Features />
+     <Highlights />
+     <Footer />
    </main>
   )
 }
